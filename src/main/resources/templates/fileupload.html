@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="input-group mb-3">
+    <label class="input-group-text" for="inputGroupFile01">当前文件</label>
+    <input type="file" class="form-control" id="inputGroupFile01">
+</div>
+<button type="button" class="btn btn-primary" id="uploadBtn">确认上传</button>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("uploadBtn").addEventListener("click", function() {
+        var fileInput = document.getElementById("inputGroupFile01");
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append("file", file);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/upload", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the response from the server if needed
+                console.log("File uploaded successfully!");
+                alert("上传成功！")
+            }
+        };
+        xhr.send(formData);
+    });
+</script>
+</body>
+</html>
